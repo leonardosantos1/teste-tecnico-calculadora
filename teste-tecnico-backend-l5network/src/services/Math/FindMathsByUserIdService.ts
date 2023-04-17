@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IMathRepository } from "../../repositories/Math/IMathRepository";
-import { MathDto } from "../../models/dto/MathDto";
+import { MathDtoDate } from "../../models/dto/MathDtoDate";
 
 @injectable()
 class FindMathsByUserIdService {
@@ -8,9 +8,9 @@ class FindMathsByUserIdService {
     @inject("MathRepository") private mathRepository: IMathRepository
   ) {}
 
-  async execute(user_id:string): Promise<MathDto[]> {
+  async execute(user_id:string): Promise<MathDtoDate[]> {
 
-    const maths:MathDto[] = await this.mathRepository.findByUserId(user_id);
+    const maths:MathDtoDate[] = await this.mathRepository.findByUserId(user_id);
 
     return maths;
 

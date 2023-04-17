@@ -3,6 +3,7 @@ interface Math{
     user_id:string;
     calculation:string;
     result:string;
+    date:string
 }
 
 export {Math}

@@ -3,6 +3,7 @@ import { MathDto } from "../../models/dto/MathDto";
 import { IMathRepository } from "./IMathRepository";
 import {Math} from "../../models/Math"
 import { v4 as uuidV4 } from "uuid";
+import { MathDtoDate } from "../../models/dto/MathDtoDate";
 
 class MathRepository implements IMathRepository {
   async insert({ user_id, calculation, result }: MathDto): Promise<void> {
@@ -36,9 +37,11 @@ class MathRepository implements IMathRepository {
   }
   async findById(id: string): Promise<MathDto> {
     try {
+
       const math = await knex("maths").where({ id }).first();
 
       return math;
+
     } catch (err) {
       console.log(err);
       throw new Error(
@@ -46,11 +49,11 @@ class MathRepository implements IMathRepository {
       );
     }
   }
-  async findByUserId(user_id: string): Promise<MathDto[]> {
+  async findByUserId(user_id: string): Promise<MathDtoDate[]> {
     try {
-      const maths: MathDto[] = await knex("maths")
+      const maths: MathDtoDate[] = await knex("maths")
         .where({ user_id })
-        .select("user_id", "calculation", "result");
+        .select("user_id", "calculation", "result", "date");
 
       return maths;
       

@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string("calculation").notNullable();
         table.string("result").notNullable();
         table.uuid('user_id').notNullable().references('id').inTable('users');
-
+        table.timestamp('date').defaultTo(knex.fn.now());
       });
 }
 
