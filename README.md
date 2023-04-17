@@ -45,7 +45,7 @@ Boa sorte...
 - [ x ] A aplicação deve conseguir persistir usuarios no DB
 - [ ] Os calculos realizados devem ser salvados com a data em que foram realizados 
 
-## RNs (Regras de Negocios) Back-end
+## RNs (Regras de Negocios) Back-ends
 
 - [ x ] O usuario não deve conseguir se cadastrar com um e-mail ja cadastro na base de dados
 - [ ] O usuario não deve conseguir realizar requisições para a API não estando autenticado
