@@ -3,6 +3,7 @@ import { IUserRepository } from "../../repositories/User/IUserRepository";
 import { User } from "../../models/User";
 import { comparePassword } from "../../utils/passwordUseCases";
 import { generateToken } from "../../utils/authenticateJwt";
+import { ApplicationError } from "../../error/ApplicationError";
 
 @injectable()
 class LoginService {
@@ -17,8 +18,8 @@ class LoginService {
     const isPasswordMatch = comparePassword(password, user.password);
 
     if (!isPasswordMatch)
-      throw new Error(
-        "Something Wrong Happened in /src/services/LoginService - password not match"
+      throw new ApplicationError(
+        "Something Wrong Happened in /src/services/LoginService - password not match",400
       );
 
     const token = generateToken({id:user.id});

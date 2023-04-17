@@ -43,7 +43,7 @@ Boa sorte...
 - [ x ] A aplicação deve retornar os resultado da conta enviado
 - [ x ] A aplicação deve conseguir persistir as informações das contas no DB
 - [ x ] A aplicação deve conseguir persistir usuarios no DB
-
+- [ ] Os calculos realizados devem ser salvados com a data em que foram realizados 
 
 ## RNs (Regras de Negocios) Back-end
 

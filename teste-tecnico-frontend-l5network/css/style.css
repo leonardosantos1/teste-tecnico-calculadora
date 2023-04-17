@@ -1,0 +1,13 @@
+.mt-6 {
+  margin-top: 6rem !important;
+}
+
+
+.container{
+    min-width: 300px;
+}
+
+
+.navbar-nav.ms-auto > .nav-item {
+    margin-left: 1rem;
+  }
