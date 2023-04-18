@@ -129,6 +129,7 @@ $("#signup-button").click(async function(event){
     clearSignupInputs();
 
     window.location.href = "sucess-signup.html";
+    
   } catch (err) {
     $("#response-signup-button").html('<div class="alert alert-danger" role="alert">Erro ao tentar realizar o cadastro! Por favor confira as informações e tente novamente</div>');
   }
