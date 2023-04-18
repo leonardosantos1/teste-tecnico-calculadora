@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
 
 export async function generatePasswordHash(password: string) {
-  console.log(process.env.SALT)
-  const salt = 12
+    const salt = parseInt(process.env.SALT)
     return await bcrypt.hash(password,salt);
 }
 

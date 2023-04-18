@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
+import { ApplicationError } from "../error/ApplicationError";
 
 const signUpSchema = z.object({
   name: z.string().min(3).max(150),
@@ -16,8 +17,6 @@ export function validateSignUpSchema(
     signUpSchema.parse(req.body);
     next();
   } catch (err) {
-    throw new Error(
-      "Something Wrong Happened in /src/middlewares/validateSignUpSchema method - validateSignUpSchema"
-    );
+    throw new ApplicationError("Something Wrong Happened in /src/middlewares/validateSignUpSchema method - validateSignUpSchema", 400);
   }
 }

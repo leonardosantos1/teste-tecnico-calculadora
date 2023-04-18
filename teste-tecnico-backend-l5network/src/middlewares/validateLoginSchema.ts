@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
+import { ApplicationError } from "../error/ApplicationError";
 
 const loginSchema = z.object({
   email: z.string().email().max(150),
@@ -15,8 +16,8 @@ export function validateLoginSchema(
     loginSchema.parse(req.body);
     next();
   } catch (err) {
-    throw new Error(
-      "Something Wrong Happened in /src/middlewares/validateLoginSchema method - validateLoginSchema"
+    throw new ApplicationError(
+      "Something Wrong Happened in /src/middlewares/validateLoginSchema method - validateLoginSchema",400
     );
   }
 }
