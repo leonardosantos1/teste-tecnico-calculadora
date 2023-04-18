@@ -1,8 +1,54 @@
 var api_url_login = "http://localhost:3001/login";
 var api_url_math = "http://localhost:3001/maths";
 var api_url_signup = "http://localhost:3001/signup"
+var api_url_math_user = "http://localhost:3001/maths/user/968b99ee-b54c-4225-b850-979d4de21a68"
 
 var buttonLogin = $("#button-login");
+
+var pages = ['calculator-page','my-calculations-page'];
+
+function showPage(currPage) {
+  $.each(pages, function(i, page) {
+    if (page == currPage) {
+      $('#' + page).show();
+    } else {
+      $('#' + page).hide();
+    }
+  });
+}
+
+async function findCalculations() {
+  try {
+    const response = await fetch(api_url_math_user);
+    const responsejSon = await response.json()
+    showMyCalculations(responsejSon)
+  } catch (err) {
+
+  }
+}
+function showMyCalculations(calculations) {
+  var table = $("<table>", {class: "table table-striped table-hover"});
+  var thead = $("<thead>").append(
+    $("<tr>").append(
+      $("<th>").text("Cálculo"),
+      $("<th>").text("Resultado"),
+      $("<th>").text("Data")
+    )
+  );
+  var tbody = $("<tbody>");
+  for (var i = 0; i < calculations.length; i++) {
+    var c = calculations[i];
+    var tr = $("<tr>").append(
+      $("<td>").text(c.calculation),
+      $("<td>").text(c.result),
+      $("<td>").text(c.date),
+    );
+    tbody.append(tr);
+  }
+  table.append(thead, tbody);
+  $("#show-my-calculations").html(table);
+}
+
 
 async function login() {
   var errorLogin = $("#error-login");
@@ -51,7 +97,7 @@ async function calculate() {
   const calculation = mathResult.replace("÷","/")
 
   const data = {
-    user_id: "af41f426-6518-48d8-a592-6a8f51075c65",
+    user_id: "968b99ee-b54c-4225-b850-979d4de21a68",
     calculation: calculation,
   };
 
@@ -92,7 +138,6 @@ function clearSignupInputs(){
   $("#password-signup").val('');
 
 }
-
 
 $("#signup-button").click(async function(event){
 
