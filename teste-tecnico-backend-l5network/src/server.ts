@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config()
 import express from "express";
+import cookieParser from "cookie-parser";
 import { Request, Response, NextFunction } from "express";
 import cors from 'cors';
 import "express-async-errors";
@@ -11,7 +12,8 @@ import { ApplicationError } from "./error/ApplicationError";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({origin:'*', credentials:true}));
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(router);
