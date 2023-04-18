@@ -17,13 +17,14 @@ function showPage(currPage) {
   });
 }
 
-async function findCalculations() {
+async function findMyCalculations() {
   try {
     const response = await fetch(api_url_math_user);
     const responsejSon = await response.json()
     showMyCalculations(responsejSon)
+    $("#error-my-calculations-page-div").html('');
   } catch (err) {
-
+    $("#error-my-calculations-page-div").html('<div class="alert alert-danger" role="alert">Ocorreu um erro ao tentar se conectar com a API! Tente novamente mais tarde!</div>')
   }
 }
 function showMyCalculations(calculations) {

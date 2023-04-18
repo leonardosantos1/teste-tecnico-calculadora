@@ -16,7 +16,7 @@
 </head>
 
 <body onload="showPage('calculator-page')">
-
+  
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="#"> <i  class="ms-4 img-responsive navbar-brand fa-solid fa-calculator"></i> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -24,17 +24,16 @@
     </button>
     <div class="collapse navbar-collapse " id="collapsibleNavbar">
       <ul class="navbar-nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="javascript:void(0)" onclick="showPage('calculator-page')">Calculadora</a>
+        <li class="nav-item">
+          <a class="nav-link text-end me-3" href="javascript:void(0)" onclick="showPage('calculator-page')">Calculadora</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="javascript:void(0)"
-            onclick="showPage('my-calculations-page');findCalculations();">Minhas Contas</a>
+          <a class="nav-link text-end me-3" href="javascript:void(0)" onclick="showPage('my-calculations-page');findMyCalculations();">Minhas Contas</a>
         </li>
       </ul>
     </div>
   </nav>
-  
+
   <div class="container mt-4" id="calculator-page">
     <h1 class="text-center mb-4">Calculadora</h1>
     <div class="row justify-content-center">
@@ -103,16 +102,14 @@
   </div>
 
   <div class="container mt-4" id="my-calculations-page">
+    <div id="error-my-calculations-page-div"></div>
     <div class="border rounded-3 text-center" id="show-my-calculations"></div>
   </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script>
-
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="/teste-tecnico-frontend-l5network//js//main.js"></script>
 
 </body>
