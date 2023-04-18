@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LoginService } from "../../services/User/LoginService";
+import { IResponseLoginService, LoginService } from "../../services/User/LoginService";
 import { container } from "tsyringe";
 import { ApplicationError } from "../../error/ApplicationError";
 
@@ -10,9 +10,11 @@ class LoginController {
 
       const loginService = container.resolve(LoginService);
 
-      const response = await loginService.execute(email, password);
+      const response:IResponseLoginService = await loginService.execute(email, password);
 
-      return res.status(200).json(response);
+      res.cookie("token", response.token, { maxAge:3600000,httpOnly: true,secure:false })
+
+      return res.status(200).json({"name":response.name, "user_id":response.user_id});
     } catch (err) {
       console.log(err);
       throw new ApplicationError(err, 400);
