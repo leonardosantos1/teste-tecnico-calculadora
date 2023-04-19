@@ -3,11 +3,15 @@
 }
 
 
-.container{
-    min-width: 300px;
+.container {
+  min-width: 300px;
 }
 
 
-.navbar-nav.ms-auto > .nav-item {
-    margin-left: 1rem;
-  }
+.navbar-nav.ms-auto>.nav-item {
+  margin-left: 1rem;
+}
+
+.navbar-text {
+  font-size: 1.1rem;
+}

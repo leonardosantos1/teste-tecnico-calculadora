@@ -58,3 +58,15 @@ Boa sorte...
 - [ x ] O banco de dados será criado apartir de um arquivo docker-compose
 
 
+## TO-DO LIST
+
+- [ x ] separar corretamente o main js para seus devidos arquivos
+- [ x ] arrumar o html com os novos caminhos dos novos arquivos js
+- [] implementar a parte de logout
+- [] melhorar a parte de erros na hora do cadastro exemplo: verificar primeiro se caso existe aquele e-mail no banco se caso sim, colocar uma mensagem de erro ao explicativa, fazer isso com o input de senha tambem
+- [ x ] melhorar a aba de minhas contas acrescendo o nome do usuario e formatar a data para o formato BR
+- [] criar uma nova aba onde mostrar todas as contas do site tendo as mesmas info da aba minhas contas *( se caso sobrar tempo acrescentar um mecanisco de busca onde ele busca somente contas realizadas pela pessoa buscada )*
+- [] implementar função de autenticação ao abrir a pagina index.html, se caso o usuario estiver autenticado manter ele na pagina, caso contrario redirecionar o mesmo para a pagina de login
+- [] arrumar a parte de responsividade da navbar da pagina index.html 
+
+

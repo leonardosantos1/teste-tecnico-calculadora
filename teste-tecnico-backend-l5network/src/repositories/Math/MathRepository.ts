@@ -24,7 +24,7 @@ class MathRepository implements IMathRepository {
 
   async findAll(): Promise<Math[]> {
     try {
-      const maths: Math[]  = await knex("maths").select("*");
+      const maths: Math[]  = await knex("maths").select("*").orderBy("date","desc");
 
       return maths;
 
@@ -53,7 +53,7 @@ class MathRepository implements IMathRepository {
     try {
       const maths: MathDtoDate[] = await knex("maths")
         .where({ user_id })
-        .select("user_id", "calculation", "result", "date");
+        .select("user_id", "calculation", "result", "date").orderBy("date");
 
       return maths;
       
