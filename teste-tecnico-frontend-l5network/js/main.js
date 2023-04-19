@@ -1,12 +1,14 @@
-var api_url_login = "http://localhost:3001/login";
-var api_url_math = "http://localhost:3001/maths";
-var api_url_signup = "http://localhost:3001/signup"
-var api_url_math_user = "http://localhost:3001/maths/user/968b99ee-b54c-4225-b850-979d4de21a68"
 
-var buttonLogin = $("#button-login");
+// geral todos js
+var api_url = "http://localhost:3001"
 
+var user_id = localStorage.getItem("user_id")
+var userName = localStorage.getItem("name")
+
+//index.js
 var pages = ['calculator-page','my-calculations-page'];
 
+// index.js
 function showPage(currPage) {
   $.each(pages, function(i, page) {
     if (page == currPage) {
@@ -17,9 +19,10 @@ function showPage(currPage) {
   });
 }
 
+// index.js
 async function findMyCalculations() {
   try {
-    const response = await fetch(api_url_math_user);
+    const response = await fetch(`${api_url}/maths/user/${user_id}`);
     const responsejSon = await response.json()
     showMyCalculations(responsejSon)
     $("#error-my-calculations-page-div").html('');
@@ -27,6 +30,8 @@ async function findMyCalculations() {
     $("#error-my-calculations-page-div").html('<div class="alert alert-danger" role="alert">Ocorreu um erro ao tentar se conectar com a API! Tente novamente mais tarde!</div>')
   }
 }
+
+// index.js
 function showMyCalculations(calculations) {
   var table = $("<table>", {class: "table table-striped table-hover"});
   var thead = $("<thead>").append(
@@ -51,38 +56,63 @@ function showMyCalculations(calculations) {
 }
 
 
-async function login() {
-  var errorLogin = $("#error-login");
-  var resultado = $("#resultado");
+//login.js
+$("#button-login").click(async function(event){
 
-  errorLogin.html("");
-  resultado.html("");
+  event.preventDefault();
 
   const email = $("#email-login").val();
   const password = $("#password-login").val();
 
-  const payload = {
+  const data = {
     email: email,
     password: password,
   };
 
   try {
-    const response = await axios.post(api_url_login, payload);
+    const response = await fetch(`${api_url}/login`,{
+      method: "POST", 
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    });
 
-    console.log(response);
-    return resultado.html(`<h2>${response.data.token}</h2>`);
+    alert(response)
+
+    console.log(response)
+
+    if(!response.ok) throw new Error();
+
+    const responseJson = await response.json();
+
+    const {name, user_id} = responseJson;
+
+    localStorage.setItem('name', name);
+    localStorage.setItem('user_id', user_id);
+
+    window.location.href = '/teste-tecnico-frontend-l5network/html/index.html'
+    
   } catch (err) {
-    console.log(err);
-    errorLogin.html(
-      '<div class="alert alert-danger" role="alert">Usuário ou senha inválidos!</div>'
-    );
+    $("#error-login").html('<div class="alert alert-danger" role="alert">Usuário ou senha inválidos!</div>');
   }
+})
+
+
+//index.js
+function getUserName(){
+  $("#name-user-link").text(userName);
 }
 
+//index.js
 var buttons = $(".math-button");
 
+//index.js
 var expression = "";
 
+//index.js
 buttons.click(function () {
 
   var value = $(this).data("value");
@@ -92,18 +122,19 @@ buttons.click(function () {
   $("#math-result").val(expression);
 });
 
+//index.js
 async function calculate() {
-  const mathResult = $("#math-result").val();
+  const inputMathResult = $("#math-result").val();
 
-  const calculation = mathResult.replace("÷","/")
+  const calculation = inputMathResult.replace("÷","/")
 
   const data = {
-    user_id: "968b99ee-b54c-4225-b850-979d4de21a68",
-    calculation: calculation,
+    user_id,
+    calculation
   };
 
   try {
-    const response = await fetch(api_url_math, {
+    const response = await fetch(`${api_url}/maths`, {
       method: "POST", 
       mode: "cors",
       headers: {
@@ -121,17 +152,20 @@ async function calculate() {
   }
 }
 
+//index.js
 function back() {
   expression = expression.substring(0, expression.length - 1);
   $("#math-result").val(expression);
 }
 
+//index.js
 $(".clear-button").click(function () {
   expression = "";
   $("#math-result").val("");
 });
 
 
+//signup.js
 function clearSignupInputs(){
  
   $("#name-signup").val('');
@@ -140,6 +174,8 @@ function clearSignupInputs(){
 
 }
 
+
+//signup.js
 $("#signup-button").click(async function(event){
 
   event.preventDefault();
@@ -159,7 +195,7 @@ $("#signup-button").click(async function(event){
 
   try {
 
-   const response = await fetch(api_url_signup, {
+   const response = await fetch(`${api_url}/signup`, {
       method: "POST", 
       mode: "cors",
       headers: {
