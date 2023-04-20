@@ -10,7 +10,7 @@
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
   <link rel="stylesheet" href="/teste-tecnico-frontend-l5network//css//style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
-  <link rel="icon" href="/teste-tecnico-frontend-l5network//svg//calculator-solid.svg">
+  <link rel="icon" href="/teste-tecnico-frontend-l5network//svg/icons8-calculator.svg">
 
 </head>
 
@@ -26,8 +26,8 @@
               onclick="showPage('calculator-page')">Calculadora</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-end me-3" href="javascript:void(0)"
-              onclick="">Todas as Contas</a>
+            <a class="nav-link text-end me-3" href="javascript:void(0)" onclick="showPage('all-calculations-page');findAllCalculations()">Todas as
+              Contas</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-end me-3" href="javascript:void(0)"
@@ -39,7 +39,7 @@
             <a class="nav-link navbar-text text-end me-3" href="#" id="name-user-link"></a>
           </li>
           <li class="nav-item">
-            <button class="btn btn-secondary me-4">Sair</button>
+            <button class="btn btn-secondary me-4" onclick="logout()">Sair</button>
           </li>
         </ul>
       </div>
@@ -63,7 +63,8 @@
                     data-value="8">8</button></div>
                 <div class="col-3"><button type="button" class="btn btn-secondary w-100 math-button"
                     data-value="9">9</button></div>
-                <div class="col-3"><button type="button" class="btn btn-warning w-100" onclick="clearInputMathResult()">CE</button></div>
+                <div class="col-3"><button type="button" class="btn btn-warning w-100"
+                    onclick="clearInputMathResult()">CE</button></div>
               </div>
               <div class="row mt-2">
                 <div class="col-3"><button type="button" class="btn btn-secondary w-100 math-button"
@@ -117,6 +118,13 @@
     <h1 class="text-center mb-4">Minhas Contas</h1>
     <div id="error-my-calculations-page-div"></div>
     <div class="border rounded-3 text-center" id="show-my-calculations"></div>
+  </div>
+
+
+  <div class="container mt-4" id="all-calculations-page">
+    <h1 class="text-center mb-4">Minhas Contas</h1>
+    <div id="error-all-calculations-page-div"></div>
+    <div class="border rounded-3 text-center" id="show-all-calculations"></div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
