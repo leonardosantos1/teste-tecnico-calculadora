@@ -7,7 +7,7 @@ var buttons = $(".math-button");
 var expression = "";
 var mathResult = $("#math-result");
 
-var pages = ['calculator-page', 'my-calculations-page'];
+var pages = ['calculator-page', 'my-calculations-page','all-calculations-page'];
 
 function showPage(currPage) {
     $.each(pages, function (i, page) {
@@ -19,9 +19,35 @@ function showPage(currPage) {
     });
 }
 
+
+async function findAllCalculations(){
+
+    try {
+        const response = await fetch(`${api_url}/maths/`);
+        const responsejSon = await response.json()
+        showAllCalculations(responsejSon)
+        $("#error-all-calculations-page-div").html('');
+    } catch (err) {
+        $("#error-all-calculations-page-div").html('<div class="alert alert-danger" role="alert">Ocorreu um erro ao tentar se conectar com a API! Tente novamente mais tarde!</div>')
+    }
+
+}    
+
+async function logout() {
+    const response = await fetch(`${api_url}/logout`);
+    if (!response.ok) throw new Error();
+    localStorage.clear();
+    window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
+}
+
 async function findMyCalculations() {
     try {
         const response = await fetch(`${api_url}/maths/user/${user_id}`);
+
+        //if(response.status === 401) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
+
+        //if(!response.ok) throw new Error();
+
         const responsejSon = await response.json()
         showMyCalculations(responsejSon)
         $("#error-my-calculations-page-div").html('');
@@ -42,7 +68,7 @@ function showMyCalculations(calculations) {
         )
     );
     const tbody = $("<tbody>");
-    
+
     dateFormatBrazilian(calculations);
 
     for (var i = 0; i < calculations.length; i++) {
@@ -59,12 +85,42 @@ function showMyCalculations(calculations) {
     $("#show-my-calculations").html(table);
 }
 
-function dateFormatBrazilian(calculations){
+
+function showAllCalculations(calculations) {
+
+    const table = $("<table>", { class: "table table-striped table-hover" });
+    const thead = $("<thead>").append(
+        $("<tr>").append(
+            $("<th>").text("Usuario ID"),
+            $("<th>").text("Cálculo"),
+            $("<th>").text("Resultado"),
+            $("<th>").text("Data")
+        )
+    );
+    const tbody = $("<tbody>");
+
+    dateFormatBrazilian(calculations);
+
+    for (var i = 0; i < calculations.length; i++) {
+        const c = calculations[i];
+        const tr = $("<tr>").append(
+            $("<td>").text(c.user_id),
+            $("<td>").text(c.calculation),
+            $("<td>").text(c.result),
+            $("<td>").text(c.date),
+        );
+        tbody.append(tr);
+    }
+    table.append(thead, tbody);
+    $("#show-all-calculations").html(table);
+}
+
+function dateFormatBrazilian(calculations) {
 
     const optionsDate = { day: '2-digit', month: '2-digit', year: 'numeric' };
 
-    calculations.forEach((calculation)=>{
-        let dateDefault = new Date(calculation.date); 
+    calculations.forEach((calculation) => {
+        let dateDefault = new Date(calculation.date);
         calculation.date = dateDefault.toLocaleDateString('pt-BR', optionsDate);
     })
 }
@@ -84,7 +140,6 @@ buttons.click(function () {
 
 
 async function calculate() {
-
     const calculation = mathResult.val().replace("÷", "/")
 
     const data = {

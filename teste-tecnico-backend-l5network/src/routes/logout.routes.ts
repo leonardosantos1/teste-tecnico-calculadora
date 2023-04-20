@@ -7,8 +7,6 @@ logoutRouter.get("/", (req: Request, res: Response) => {
     try {
 
         res.clearCookie('token', { httpOnly: true });
-        res.clearCookie('name');
-        res.clearCookie('user_id');
         return res.status(200).send();
 
     } catch (err) {

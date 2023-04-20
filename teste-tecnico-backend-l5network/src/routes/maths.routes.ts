@@ -12,7 +12,7 @@ const insertMathController = new InsertMathController();
 const findMathsByUserIdController = new FindMathsByUserIdController();
 const findAllMathsController = new FindAllMathsController();
 
-mathsRouter.post("/",/*validateTokenAuthenticity,*/validateMathSchema,insertMathController.handle);
+mathsRouter.post("/",validateTokenAuthenticity,validateMathSchema,insertMathController.handle);
 mathsRouter.get("/user/:user_id",validateParamUserId,findMathsByUserIdController.handle);
 mathsRouter.get("/",findAllMathsController.handle);
 
