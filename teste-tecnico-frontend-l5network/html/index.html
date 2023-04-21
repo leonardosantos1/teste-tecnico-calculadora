@@ -35,6 +35,10 @@
             <a class="nav-link text-end me-3" href="javascript:void(0)"
               onclick="showPage('my-calculations-page');getCalculations('my-calculations-page');">Minhas Contas</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-end me-3" href="javascript:void(0)"
+              onclick="showPage('my-data-page');getNameAndEmailUser();">Meus Dados</a>
+          </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item d-none d-lg-block">
@@ -49,6 +53,7 @@
   </nav>
 
   <div class="container mt-4" id="calculator-page">
+    <div id="error-calculate-div"></div>
     <h1 class="text-center mb-4">Calculadora</h1>
     <div class="row justify-content-center">
       <div class="col-lg-4 col-md-6 col-sm-8 col-10">
@@ -117,16 +122,53 @@
   </div>
 
   <div class="container mt-4" id="my-calculations-page">
-    <h1 class="text-center mb-4">Minhas Contas</h1>
     <div id="error-my-calculations-page-div"></div>
+    <h1 class="text-center mb-4">Minhas Contas</h1>
     <div class="border rounded-3 text-center" id="show-my-calculations"></div>
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item m-3">
+          <a class="page-link" href="#" aria-label="Anterior">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="visually-hidden">Anterior</span>
+          </a>
+        </li>
+        <li class="page-item m-3" id="item-pages"><a href="#" id="#first-page-of-pagination">1</a></li>
+        
+        <li class="page-item m-3" id="item-pages">...</li>
+
+        <li class="page-item m-3" id="item-pages"><a href="#" id="#last-page-of-pagination">2</a></li>
+
+        <li class="page-item m-3">
+          <a class="page-link" href="#" aria-label="Próximo">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="visually-hidden">Próximo</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
-
   <div class="container mt-4" id="all-calculations-page">
-    <h1 class="text-center mb-4">Minhas Contas</h1>
     <div id="error-all-calculations-page-div"></div>
+    <h1 class="text-center mb-4">Toda as Contas</h1>
     <div class="border rounded-3 text-center" id="show-all-calculations"></div>
+  </div>
+  
+  <div class="container mt-4" id="my-data-page">
+
+    <div class="container d-flex flex-column mt-6 vh-100 w-25">
+      <div id="error-my-data-page-div"></div>
+      <h1 class="text-center mb-4">Meus dados</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Nome</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" id="my-data-name" disabled>
+      </div>    
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">E-mail</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" id="my-data-email" disabled>
+      </div>    
+    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
