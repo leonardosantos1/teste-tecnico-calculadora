@@ -13,8 +13,8 @@ const findMathsByUserIdController = new FindMathsByUserIdController();
 const findAllMathsController = new FindAllMathsController();
 
 mathsRouter.post("/",validateTokenAuthenticity,validateMathSchema,insertMathController.handle);
-mathsRouter.get("/user/:user_id",validateParamUserId,findMathsByUserIdController.handle);
-mathsRouter.get("/",findAllMathsController.handle);
+mathsRouter.get("/user/:user_id",validateTokenAuthenticity,validateParamUserId,findMathsByUserIdController.handle);
+mathsRouter.get("/",validateTokenAuthenticity,findAllMathsController.handle);
 
 
 export { mathsRouter };

@@ -7,9 +7,10 @@ var buttons = $(".math-button");
 var expression = "";
 var mathResult = $("#math-result");
 
-var pages = ['calculator-page', 'my-calculations-page','all-calculations-page'];
+var pages = ['calculator-page', 'my-calculations-page', 'all-calculations-page'];
 
 function showPage(currPage) {
+
     $.each(pages, function (i, page) {
         if (page == currPage) {
             $('#' + page).show();
@@ -19,49 +20,59 @@ function showPage(currPage) {
     });
 }
 
+function verifyToken() {
+    if (!localStorage.getItem("token")) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
+}
 
-async function findAllCalculations(){
-
-    try {
-        const response = await fetch(`${api_url}/maths/`);
-        const responsejSon = await response.json()
-        showAllCalculations(responsejSon)
-        $("#error-all-calculations-page-div").html('');
-    } catch (err) {
-        $("#error-all-calculations-page-div").html('<div class="alert alert-danger" role="alert">Ocorreu um erro ao tentar se conectar com a API! Tente novamente mais tarde!</div>')
-    }
-
-}    
-
-async function logout() {
-    const response = await fetch(`${api_url}/logout`);
-    if (!response.ok) throw new Error();
+function logout() {
     localStorage.clear();
     window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
 }
 
-async function findMyCalculations() {
+async function getCalculations(pageName) {
+
+    let url;
+
+    switch(pageName){
+        case 'my-calculations-page':
+            url = `${api_url}/maths/user/${user_id}`;
+            break;
+        case 'all-calculations-page':
+            url = `${api_url}/maths/`;
+    }
+
     try {
-        const response = await fetch(`${api_url}/maths/user/${user_id}`);
+        const response = await fetch(url, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+            credentials: 'include'
+        });
 
-        //if(response.status === 401) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
+        if(response.status === 401) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
 
-        //if(!response.ok) throw new Error();
+        if(!response.ok) throw new Error();
 
-        const responsejSon = await response.json()
-        showMyCalculations(responsejSon)
+        const responsejSon = await response.json();
+        showCalculations(responsejSon, pageName);
+
         $("#error-my-calculations-page-div").html('');
+
     } catch (err) {
         $("#error-my-calculations-page-div").html('<div class="alert alert-danger" role="alert">Ocorreu um erro ao tentar se conectar com a API! Tente novamente mais tarde!</div>')
     }
 }
 
-function showMyCalculations(calculations) {
+function showCalculations(calculations, pageName) {
+
+    let user;
 
     const table = $("<table>", { class: "table table-striped table-hover" });
     const thead = $("<thead>").append(
         $("<tr>").append(
-            $("<th>").text("Nome"),
+            $("<th>").text("Usuário"),
             $("<th>").text("Cálculo"),
             $("<th>").text("Resultado"),
             $("<th>").text("Data")
@@ -73,8 +84,14 @@ function showMyCalculations(calculations) {
 
     for (var i = 0; i < calculations.length; i++) {
         const c = calculations[i];
+        
+        if (pageName === 'my-calculations-page') {
+            user = name
+        } else {
+            user = c.user_id
+        }
         const tr = $("<tr>").append(
-            $("<td>").text(name),
+            $("<td>").text(user),
             $("<td>").text(c.calculation),
             $("<td>").text(c.result),
             $("<td>").text(c.date),
@@ -82,37 +99,13 @@ function showMyCalculations(calculations) {
         tbody.append(tr);
     }
     table.append(thead, tbody);
-    $("#show-my-calculations").html(table);
-}
 
+    if (pageName === 'my-calculations-page') {
+        $("#show-my-calculations").html(table);
 
-function showAllCalculations(calculations) {
-
-    const table = $("<table>", { class: "table table-striped table-hover" });
-    const thead = $("<thead>").append(
-        $("<tr>").append(
-            $("<th>").text("Usuario ID"),
-            $("<th>").text("Cálculo"),
-            $("<th>").text("Resultado"),
-            $("<th>").text("Data")
-        )
-    );
-    const tbody = $("<tbody>");
-
-    dateFormatBrazilian(calculations);
-
-    for (var i = 0; i < calculations.length; i++) {
-        const c = calculations[i];
-        const tr = $("<tr>").append(
-            $("<td>").text(c.user_id),
-            $("<td>").text(c.calculation),
-            $("<td>").text(c.result),
-            $("<td>").text(c.date),
-        );
-        tbody.append(tr);
+    } else {
+        $("#show-all-calculations").html(table);
     }
-    table.append(thead, tbody);
-    $("#show-all-calculations").html(table);
 }
 
 function dateFormatBrazilian(calculations) {
@@ -152,8 +145,10 @@ async function calculate() {
             method: "POST",
             mode: "cors",
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
             },
+            credentials: 'include',
             body: JSON.stringify(data),
         });
 

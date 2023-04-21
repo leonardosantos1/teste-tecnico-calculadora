@@ -8,8 +8,8 @@ $("#button-login").click(async function (event) {
   event.preventDefault();
 
   const data = {
-    email:email.val(),
-    password:password.val(),
+    email: email.val(),
+    password: password.val(),
   };
 
   try {
@@ -27,19 +27,20 @@ $("#button-login").click(async function (event) {
 
     const responseJson = await response.json();
 
-    const { name, user_id } = responseJson;
+    const { name, user_id, token } = responseJson;
 
     localStorage.setItem('name', name);
     localStorage.setItem('user_id', user_id);
+    localStorage.setItem('token', token);
 
     window.location.href = '/teste-tecnico-frontend-l5network/html/index.html';
 
   } catch (err) {
     clearInputsLogin();
-    if(err.message === 'Failed to fetch'){
+    if (err.message === 'Failed to fetch') {
       $("#error-login").html('<div class="alert alert-danger" role="alert">Não possível efetuar Login. Por favor tente novamente mais tarde!</div>');
 
-    }else{
+    } else {
       $("#error-login").html('<div class="alert alert-danger" role="alert">Usuário ou senha inválidos!</div>');
     }
   }
