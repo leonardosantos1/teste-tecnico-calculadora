@@ -7,7 +7,7 @@ var buttons = $(".math-button");
 var expression = "";
 var mathResult = $("#math-result");
 
-var pages = ['calculator-page', 'my-calculations-page', 'all-calculations-page'];
+var pages = ['calculator-page', 'my-calculations-page', 'all-calculations-page','my-data-page'];
 
 function showPage(currPage) {
 
@@ -20,6 +20,26 @@ function showPage(currPage) {
     });
 }
 
+async function getNameAndEmailUser(){
+    // try{
+
+    //     const response = await fetch(url, {
+    //         headers: {
+    //             Accept: 'application/json',
+    //             'Content-Type': 'application/json',
+    //             'Authorization': localStorage.getItem('token')
+    //         },
+    //         credentials: 'include'
+    //     });
+
+    // }catch(err){
+
+    // }
+
+    $("#my-data-name").val(name);
+
+}
+
 function verifyToken() {
     if (!localStorage.getItem("token")) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
 }
@@ -29,11 +49,11 @@ function logout() {
     window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
 }
 
-async function getCalculations(pageName) {
+async function getCalculations(namePage) {
 
     let url;
 
-    switch(pageName){
+    switch (namePage) {
         case 'my-calculations-page':
             url = `${api_url}/maths/user/${user_id}`;
             break;
@@ -51,12 +71,12 @@ async function getCalculations(pageName) {
             credentials: 'include'
         });
 
-        if(response.status === 401) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
+        if (response.status === 401) window.location.href = '/teste-tecnico-frontend-l5network/html/login.html';
 
-        if(!response.ok) throw new Error();
+        if (!response.ok) throw new Error();
 
         const responsejSon = await response.json();
-        showCalculations(responsejSon, pageName);
+        showCalculations(responsejSon, namePage);
 
         $("#error-my-calculations-page-div").html('');
 
@@ -65,7 +85,7 @@ async function getCalculations(pageName) {
     }
 }
 
-function showCalculations(calculations, pageName) {
+function showCalculations(calculations, namePage) {
 
     let user;
 
@@ -84,8 +104,8 @@ function showCalculations(calculations, pageName) {
 
     for (var i = 0; i < calculations.length; i++) {
         const c = calculations[i];
-        
-        if (pageName === 'my-calculations-page') {
+
+        if (namePage === 'my-calculations-page') {
             user = name
         } else {
             user = c.user_id
@@ -100,7 +120,7 @@ function showCalculations(calculations, pageName) {
     }
     table.append(thead, tbody);
 
-    if (pageName === 'my-calculations-page') {
+    if (namePage === 'my-calculations-page') {
         $("#show-my-calculations").html(table);
 
     } else {
@@ -152,12 +172,16 @@ async function calculate() {
             body: JSON.stringify(data),
         });
 
+        if (!response.ok) throw new Error();
+
         const responseJson = await response.json();
 
         mathResult.val(responseJson.result);
         expression = '';
     } catch (err) {
         expression = '';
+        $("#error-calculate-div").html('<div class="alert alert-danger" role="alert">Ocorreu um erro ao tentar se conectar com a API! Tente novamente mais tarde!</div>')
+
     }
 }
 

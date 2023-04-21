@@ -53,7 +53,7 @@ class MathRepository implements IMathRepository {
     try {
       const maths: MathDtoDate[] = await knex("maths")
         .where({ user_id })
-        .select("user_id", "calculation", "result", "date").orderBy("date");
+        .select("user_id", "calculation", "result", "date").orderBy("date","desc");
 
       return maths;
       
