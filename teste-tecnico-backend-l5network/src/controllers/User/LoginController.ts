@@ -12,9 +12,7 @@ class LoginController {
 
       const response:IResponseLoginService = await loginService.execute(email, password);
 
-      res.cookie("token", response.token, { maxAge:3600000,httpOnly: true,secure:false })
-
-      return res.status(200).json({"name":response.name, "user_id":response.user_id});
+      return res.status(200).send({"token":response.token,"name":response.name, "user_id":response.user_id});
     } catch (err) {
       console.log(err);
       throw new ApplicationError(err, 400);

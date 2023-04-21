@@ -68,5 +68,6 @@ Boa sorte...
 - [] criar uma nova aba onde mostrar todas as contas do site tendo as mesmas info da aba minhas contas *( se caso sobrar tempo acrescentar um mecanisco de busca onde ele busca somente contas realizadas pela pessoa buscada )*
 - [] implementar função de autenticação ao abrir a pagina index.html, se caso o usuario estiver autenticado manter ele na pagina, caso contrario redirecionar o mesmo para a pagina de login
 - [] arrumar a parte de responsividade da navbar da pagina index.html 
+- [] o cookie do token não esta funcionando arrumar essa fita hoje (quinta) sem falta
 
 
