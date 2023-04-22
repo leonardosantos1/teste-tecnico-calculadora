@@ -17,7 +17,7 @@ export function validateLoginSchema(
     next();
   } catch (err) {
     throw new ApplicationError(
-      "Something Wrong Happened in /src/middlewares/validateLoginSchema method - validateLoginSchema",400
+      "Por favor insira Email/Senha validos",400
     );
   }
 }

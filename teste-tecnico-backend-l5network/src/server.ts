@@ -2,6 +2,10 @@ import * as dotenv from "dotenv";
 dotenv.config()
 import express from "express";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import * as path from "path";
+import * as yaml from 'js-yaml'; 
 import { Request, Response, NextFunction } from "express";
 import cors from 'cors';
 import "express-async-errors";
@@ -19,38 +23,14 @@ app.use(cors({
 
 app.use(express.json());
 
+const swaggerFilePath =  path.join(__dirname, 'swagger.yml');
+const swaggerFileContents = fs.readFileSync(swaggerFilePath, 'utf8');
+const swaggerDocument = yaml.load(swaggerFileContents);
+
+
+app.use("/api-docs",swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
 app.use(router);
-
-
-// app.post('/set-cookie', async (req: Request, res: Response) => {
-
-//   try {
-//     const token = await generateToken({ id: req.body.user_id });
-
-//     res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
-//     res.send('Cookie set successfully');
-//   } catch (err) {
-
-//     console.log(err);
-//     res.status(401).send();
-//   }
-// });
-
-// app.get('/get-cookie', (req: Request, res: Response) => {
-//   const token = req.cookies.token;
-//   if (token) {
-//     res.send(`Token: ${token}`);
-//   } else {
-//     res.send('Cookie not found');
-//   }
-// });
-
-// app.get('/clear-cookie', (req: Request, res: Response) => {
-//   res.clearCookie('token', { httpOnly: true });
-//   return res.send("clear token");
-// });
-
-
 
 app.use((err: Error, request: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApplicationError) {

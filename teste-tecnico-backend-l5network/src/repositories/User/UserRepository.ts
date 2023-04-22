@@ -22,7 +22,6 @@ class UserRepository implements IUserRepository {
       const users: UserDto[] = await knex("users").select(
         "id",
         "name",
-        "email" 
       );
 
       return users;

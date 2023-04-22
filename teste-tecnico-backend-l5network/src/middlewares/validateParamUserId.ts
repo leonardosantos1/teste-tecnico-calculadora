@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
+import { ApplicationError } from "../error/ApplicationError";
 
 const userIdParamSchema = z.string().uuid();
 
@@ -9,11 +10,10 @@ export function validateParamUserId(
   next: NextFunction
 ) {
   try {
-    userIdParamSchema.parse(req.params.user_id);
+
+    userIdParamSchema.parse(req.params.id)
     next();
   } catch (err) {
-    throw new Error(
-      "Something Wrong Happened in /src/middlewares/validateParamUserId method - validateParamUserId"
-    );
+    throw new ApplicationError("Por favor envio um Id valido!", 400)
   }
 }

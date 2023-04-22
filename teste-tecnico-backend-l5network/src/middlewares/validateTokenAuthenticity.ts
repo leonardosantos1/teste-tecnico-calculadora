@@ -5,21 +5,19 @@ import { ApplicationError } from "../error/ApplicationError";
 export function validateTokenAuthenticity(req: Request, res: Response, next: NextFunction) {
 
     try {
-        const token  = req.headers.authorization;
-        
+        const token = req.headers.authorization;
+
         if (!token) {
-            console.log("não está vindo o token")    
+            console.log("não está vindo o token")
             return res.status(401).json({ "message": "Null Token! Please perform Login" });
-        
+
         }
 
-        if (!verifyToken(token)) {
-            console.log("token está invalido")    
+        console.log("passou pelo token nao vazio")
 
-            return res.status(401).json({ "message": "Token invalid!" });
-        }
+        if(!verifyToken(token)) throw new ApplicationError("Token invalid",401);
+        next()
 
-        next();
     } catch (err) {
         console.log(err);
         throw new ApplicationError(err, 401);

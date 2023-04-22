@@ -16,7 +16,7 @@ class SignUpController {
         return res.status(201).send();
       }catch(err){
         console.log(err);
-        throw new ApplicationError(err, 400);
+        throw new ApplicationError("Por favor verifique os campos de Nomen Email e Senha para ver se são validos. Email só podem ser cadastrados somente uma vez!", 400);
       }
 
     

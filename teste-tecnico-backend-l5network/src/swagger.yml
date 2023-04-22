@@ -1,0 +1,311 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Exemplo de API Node.js"
+  description: "Exemplo de documentação Swagger para uma API Node.js"
+basePath: "/"
+schemes:
+  - "http"
+  - "https"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+paths:
+  /users/user/{id}:
+    get:
+      summary: "Recupera um Usuario pelo Id"
+      description: "Recupera as informações de um usuario especifico"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id do usuario a ser buscado"
+          required: true
+          type: "string"
+        - name: "Authorization"
+          in: "header"
+          description: "Token de autenticação"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Objeto encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: "string"
+                    format: "uuid"
+                    description: Id do usuario
+                  email:
+                    type: "string"
+                    description: Email do usuario
+                  name:
+                    type: "string"
+                    description: Nome do usuario
+        400:
+          description: "Por favor envio um Id valido!"
+        401:
+          description: "Usuario não autenticado"
+  /users/:
+    get:
+      summary: "Recupera todos os Ussuarios"
+      description: "Recupera todos os Usuarios da aplicação"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token de autenticação"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Objeto encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: "string"
+                    format: "uuid"
+                    description: Id do usuario.
+                  name:
+                    type: "string"
+                    description: Nome do usuario.
+        401:
+          description: "Usuario não autenticado"
+  /login:
+    post:
+      summary: "Efetua Login"
+      description: "Realiza o Login na aplicação"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "Corpo da requisição para efetuar Login"
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: "Email do usuario"
+              password:
+                type: string
+                description: "Senha do usuario com no minimo 6 digitos"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "Email do usuario"
+                password:
+                  type: string
+                  description: "Senha do usuario com no minimo 6 digitos"
+              example:
+                email: "test@email.com"
+                password: "123456"
+      responses:
+        200:
+          description: "Objeto encontrado"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  user_id:
+                    type: "string"
+                    format: "uuid"
+                    description: Id do usuario.
+                  token:
+                    type: "string"
+                    description: Token de autenticação do usuario.
+                  name:
+                    type: "string"
+                    description: Nome do usuario
+        400:
+          description: "Por favor insira Email/Senha validos"
+  /signup:
+    post:
+      summary: "Efetua Cadastro"
+      description: "Realiza o Cadastro na aplicação"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "Corpo da requisição para efetuar Cadastro"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                description: "Nome do usuario"
+              email:
+                type: "string"
+                description: "Email do usuario, esse email só pode ser registrado somente uma vez na aplicação"
+              password:
+                type: "string"
+                description: "Senha do usuario com no minimo 6 digitos"
+      responses:
+        201:
+          description: "Usuario criado"
+        400:
+          description: "Por favor verifique os campos de Nomen Email e Senha para ver se são validos. Email só podem ser cadastrados somente uma vez!"
+  /maths:
+    get:
+      summary: "Busca contas realizadas pelo usuario"
+      description: "Busca contas realizadas pelo user id especificado"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token de autenticação"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Operações buscadas com suscesso"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  page:
+                  type: "string"
+                  description: "Número da página atual"
+                data:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "string"
+                        format: "uuid"
+                        description: "ID da operação matemática"
+                      calculation:
+                        type: "string"
+                        description: "Operação matemática enviada pelo usuário"
+                      result:
+                        type: "string"
+                        description: "Resultado da operação matemática"
+                      user_id:
+                        type: "string"
+                        format: "uuid"
+                        description: "ID do usuário que realizou a operação matemática"
+                      date:
+                        type: "string"
+                        format: "date-time"
+                        description: "Data em que a operação matemática foi registrada no banco de dados"
+                  totalPages:
+                    type: "integer"
+                    description: "Número total de páginas disponíveis"
+        400:
+         description: "Ocorreu um erro ao tentar buscar as contas do usuario!"
+        401:
+         description: "Não está autenticado, por favor realize login para pegar o token de acesso!"
+    post:
+      summary: "Realiza uma conta"
+      description: "Realiza uma conta"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "Corpo da requisição para efetuar Cadastro"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              user_id:
+                type: "string"
+                format: "uuid"
+                example: "d32e73e1-962b-4123-ab7a-0c888ed335a0"
+                description: "Id do usuario Logado na Aplicação"
+              calculation:
+                type: "string"
+                example: "1+1"
+                description: "Conta matemática enviado pelo usuario no body"
+        - name: "Authorization"
+          in: "header"
+          description: "Token de autenticação"
+          required: true
+          type: "string"
+      responses:
+        201:
+          description: "Operação matemática criada e resolvida com sucesso"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  user_id:
+                    type: "string"
+                    format: "uuid"
+                    description: "Id do usuario"
+                  calculation:
+                    type: "string"
+                    description: "Operação matemática enviado pelo usuario no corpo da requisição"
+                  result:
+                    type: "string"
+                    description: "Resultado da operação matemática"
+                  date:
+                    type: "string"
+                    description: "Data em que foi registrada no banco a operação matemática"
+        400:
+          description: "Por favor verifique os campos de Nomen Email e Senha para ver se são validos. Email só podem ser cadastrados somente uma vez!"
+        401:
+          description: "Não está autenticado, por favor realize login para pegar o token de acesso!"
+        500:
+          description: "Não foi possível registrar a operação matemática, por favor verifique se a conta está correta"
+  /maths/user/{user_id}:   
+    get:
+      summary: "Busca contas realizadas pelo usuario"
+      description: "Busca contas realizadas pelo user id especificado"
+      parameters:
+        - name: "user_id"
+          in: "path"
+          description: "Id do usuario a ser buscado as contas"
+          required: true
+          type: "string"
+          format: "uuid"
+      responses:
+        200:
+          description: "Operações buscadas com suscesso"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  page:
+                  type: "string"
+                  description: "Número da página atual"
+                data:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "string"
+                        format: "uuid"
+                        description: "ID da operação matemática"
+                      calculation:
+                        type: "string"
+                        description: "Operação matemática enviada pelo usuário"
+                      result:
+                        type: "string"
+                        description: "Resultado da operação matemática"
+                      user_id:
+                        type: "string"
+                        format: "uuid"
+                        description: "ID do usuário que realizou a operação matemática"
+                      date:
+                        type: "string"
+                        format: "date-time"
+                        description: "Data em que a operação matemática foi registrada no banco de dados"
+                  totalPages:
+                    type: "integer"
+                    description: "Número total de páginas disponíveis"
+        400:
+         description: "Ocorreu um erro ao tentar buscar as contas do usuario!"
+
