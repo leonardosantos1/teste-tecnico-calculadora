@@ -2,7 +2,7 @@ import { Router } from "express";
 import { InsertMathController } from "../controllers/Math/InsertMathController";
 import { FindMathsByUserIdController } from "../controllers/Math/FindMathsByUserIdController";
 import { validateMathSchema } from "../middlewares/validateMathSchema";
-import { validateParamUserId } from "../middlewares/validateParamUserId";
+import { validateParamMathUserId } from "../middlewares/validateParamMathUserId";
 import { FindAllMathsController } from "../controllers/Math/FindAllMathsController";
 import { validateTokenAuthenticity } from "../middlewares/validateTokenAuthenticity";
 
@@ -13,8 +13,7 @@ const findMathsByUserIdController = new FindMathsByUserIdController();
 const findAllMathsController = new FindAllMathsController();
 
 mathsRouter.post("/",validateTokenAuthenticity,validateMathSchema,insertMathController.handle);
-mathsRouter.get("/user/:user_id",validateTokenAuthenticity,validateParamUserId,findMathsByUserIdController.handle);
+mathsRouter.get("/user/:user_id",validateParamMathUserId,findMathsByUserIdController.handle);
 mathsRouter.get("/",validateTokenAuthenticity,findAllMathsController.handle);
-
 
 export { mathsRouter };

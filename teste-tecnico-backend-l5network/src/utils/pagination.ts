@@ -1,6 +1,6 @@
 import { ApplicationError } from "../error/ApplicationError";
 
-function getPaginatedData(page, pageSize, datas,) {
+function getPaginatedData(page, pageSize, datas) {
     try {
 
         const pageSizeValue = pageSize || 10;

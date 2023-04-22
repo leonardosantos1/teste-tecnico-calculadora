@@ -26,7 +26,7 @@ class LoginService {
 
     if (!isPasswordMatch)
       throw new ApplicationError(
-        "Something Wrong Happened in /src/services/LoginService - password not match",400
+        "Por favor insira Email/Senha validos",400
       );
 
     const token = generateToken({id:user.id});
