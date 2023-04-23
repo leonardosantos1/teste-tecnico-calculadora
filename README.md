@@ -1,6 +1,6 @@
 # **Requisitos essenciais para rodar o projeto**
 - Ter NodeJs instalado em sua maquina (versão 14 ou superior)
-- Ter Docker Desktop instalado em sua maquina 
+- Ter Docker Desktop instalado e rodando em sua maquina 
 - Uma IDE de sua preferência para executar o projeto (para desenvolvimento utilizei a Visual Studio Code). Recomando que utilize o Visual Studio Code para usar o plugin Live Server para rodar o frontend corretamente
 
 # **Como executar o projeto ( backend e frontend )**
