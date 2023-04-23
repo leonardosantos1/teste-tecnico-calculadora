@@ -55,7 +55,7 @@ Com isso a parte de backend ja está totalmente configurada e subida. Você util
 
 **OBS: Para o frontend recomando que utilize a IDE do Visual Studio Code com o plugin do Live Server instalado, para que isso funcione corretamente o valor do CORS_ORIGIN**
 
-**Outro ponto que informo é que o usuario precisa estar autenticado para conseguir utilizar o serviço da Calculodora ( pagina index.html ), caso contrario o mesmo será redirecionando toda vez para a tela de login. Caso o usuario não tenha nenhum cadastro o mesmo deve se cadastrar pagina de signup.html**
+**Outro ponto que informo é que o usuario precisa estar autenticado para conseguir utilizar o serviço da Calculadora ( pagina index.html ), caso contrario o mesmo será redirecionado toda vez para a tela de login. Caso o usuario não tenha nenhum cadastro o mesmo deve se cadastrar pagina de signup.html, os campos pedidos serão o Nome ( até 150 caracteres ), Email (pode usar uma unica vez, e até 150 caracteres) e Senha ( deve ter no minimo 6 caracteres )**
 
 
 
