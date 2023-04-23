@@ -6,18 +6,11 @@ export function validateTokenAuthenticity(req: Request, res: Response, next: Nex
 
     try {
         const token = req.headers.authorization;
-
         if (!token) {
-            console.log("não está vindo o token")
             return res.status(401).json({ "message": "Null Token! Please perform Login" });
-
         }
-
-        console.log("passou pelo token nao vazio")
-
         if(!verifyToken(token)) throw new ApplicationError("Token invalid",401);
         next()
-
     } catch (err) {
         console.log(err);
         throw new ApplicationError(err, 401);

@@ -18,7 +18,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "http://127.0.0.1:5500", credentials: true
+  origin: (process.env.CORS_ORIGIN || "http://127.0.0.1:5500"), credentials: true
 }));
 
 app.use(express.json());
@@ -26,7 +26,6 @@ app.use(express.json());
 const swaggerFilePath =  path.join(__dirname, 'swagger.yml');
 const swaggerFileContents = fs.readFileSync(swaggerFilePath, 'utf8');
 const swaggerDocument = yaml.load(swaggerFileContents);
-
 
 app.use("/api-docs",swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 

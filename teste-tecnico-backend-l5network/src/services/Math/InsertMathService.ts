@@ -12,7 +12,6 @@ class InsertMathService {
 
     const result = eval(calculation).toString();
 
-    console.log(result);
     await this.mathRepository.insert({user_id,calculation,result})
 
     return {calculation,result};
