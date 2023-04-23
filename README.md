@@ -3,7 +3,7 @@
 - Ter Docker Desktop instalado em sua maquina 
 - Uma IDE de sua preferência para executar o projeto (para desenvolvimento utilizei a Visual Studio Code). Recomando que utilize o Visual Studio Code para usar o plugin Live Server para rodar o frontend corretamente
 
-# **Como executar o projeto inteiro ( backend e frontend )**
+# **Como executar o projeto ( backend e frontend )**
 Antes de começar a configurar o projeto para rodar a aplicação, clone o repositorio e entre na pasta do mesmo 
 ```bash
 git clone https://github.com/leonardosantos1/teste-tecnico-calculadora.git
