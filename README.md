@@ -51,6 +51,8 @@ Com as tabelas criadas no banco de dados, ja está tudo pronto para rodar o proj
 ```bash
 npm run dev
 ```
+**OBS: Caso você queria visualizar a parte da documentação das rotas da API, existe uma rota "/api-docs", você pode acessá-la pelo navegor e visualizar a parte da documentação das rotas**
+
 Com isso a parte de backend ja está totalmente configurada e subida. Você utilizar as páginas do frontend para executar devidas funções, como: Login de Usuario, Cadastro de Usuario e a Calculadora para ser utilizada pelo usuario.
 
 **OBS: Para o frontend recomando que utilize a IDE do Visual Studio Code com o plugin do Live Server instalado, para que isso funcione corretamente o valor do CORS_ORIGIN**
