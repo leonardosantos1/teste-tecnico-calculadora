@@ -4,6 +4,10 @@ import { IMathRepository } from "./IMathRepository";
 import {Math} from "../../models/Math"
 import { v4 as uuidV4 } from "uuid";
 import { MathDtoDate } from "../../models/dto/MathDtoDate";
+import moment from 'moment-timezone';
+
+const now = moment().tz('America/Sao_Paulo').toDate();
+
 
 class MathRepository implements IMathRepository {
   async insert({ user_id, calculation, result }: MathDto): Promise<void> {
@@ -13,6 +17,7 @@ class MathRepository implements IMathRepository {
         user_id,
         calculation,
         result,
+        date:now
       });
     } catch (err) {
       console.log(err);
